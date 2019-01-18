@@ -25,6 +25,7 @@ class HobeaDeServiceProvider extends ServiceProvider
     public function boot(Twig $twig, Dispatcher $dispatcher)
     {
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
+            $container->addStyleTemplate('HobeaDe::Stylesheet');
             $container->addScriptTemplate('HobeaDe::Script');
         }, self::PRIORITY);
 
