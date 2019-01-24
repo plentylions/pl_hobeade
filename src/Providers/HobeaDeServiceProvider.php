@@ -2,11 +2,15 @@
 
 namespace HobeaDe\Providers;
 
+use Ceres\Caching\NavigationCacheSettings;
+use Ceres\Caching\SideNavigationCacheSettings;
+use IO\Services\ContentCaching\Services\Container;
 use IO\Helper\TemplateContainer;
 use IO\Helper\ResourceContainer;
 use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Templates\Twig;
+use IO\Extensions\Functions\Partial;
 
 
 /**
@@ -27,6 +31,22 @@ class HobeaDeServiceProvider extends ServiceProvider
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
             $container->addScriptTemplate('HobeaDe::Script');
+        }, self::PRIORITY);
+
+        $dispatcher->listen('IO.init.templates', function (Partial $partial)
+        {
+            pluginApp(Container::class)->register('Legend::PageDesign.Partials.Header.NavigationList.twig', NavigationCacheSettings::class);
+            pluginApp(Container::class)->register('Legend::PageDesign.Partials.Header.SideNavigation.twig', SideNavigationCacheSettings::class);
+
+            $partial->set('head', 'Ceres::PageDesign.Partials.Head');
+            $partial->set('header', 'Ceres::PageDesign.Partials.Header.Header');
+            $partial->set('page-design', 'Ceres::PageDesign.PageDesign');
+            $partial->set('footer', 'Ceres::PageDesign.Partials.Footer');
+
+            $partial->set('head', 'Legend::PageDesign.Partials.Head');
+            $partial->set('header', 'Legend::PageDesign.Partials.Header.Header');
+            $partial->set('page-design', 'Legend::PageDesign.PageDesign');
+            $partial->set('footer', 'HobeaDe::PageDesign.Partials.Footer');
         }, self::PRIORITY);
 
         $dispatcher->listen('IO.tpl.item', function (TemplateContainer $container)
