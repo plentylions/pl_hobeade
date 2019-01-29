@@ -17,8 +17,8 @@
     <div class="container-max footer-content">
         <div class="row">
             {% for i in 1..1 %}
-                <div class="col-xs-12 col-sm-6 col-md-3">
-                    <nav class="footer-column m-b-3">
+                <div class="col-12 col-sm-6 col-md-3">
+                    <nav class="footer-column mb-4">
                         <h2 class="h5">{{ trans('Ceres::Template.footerColumnTitle' ~ i) }}</h2>
                         <ul class="list-unstyled">
                             {% set footerCategories = config('Ceres.footer.col_' ~ i ~ '_categories') | find("[0-9]+") %}
@@ -51,8 +51,8 @@
                     </nav>
                 </div>
             {% endfor %}
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <nav class="footer-column m-b-3">
+            <div class="col-12 col-sm-6 col-md-3">
+                <nav class="footer-column mb-4">
                     <h2 class="h5">{{ trans('Ceres::Template.footerColumnTitle' ~ 2) }}</h2>
                     <ul class="list-unstyled">
                         <li><a href="#">About us</a></li>
@@ -66,8 +66,8 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <nav class="footer-column m-b-3">
+            <div class="col-12 col-sm-6 col-md-3">
+                <nav class="footer-column mb-4">
                     <h2 class="h5">Customer Service</h2>
                     <ul class="list-unstyled">
                         <li><a href="#">Search Terms</a></li>
@@ -81,8 +81,8 @@
                     </ul>
                 </nav>
             </div>
-            <div class="col-xs-12 col-sm-6 col-md-3">
-                <nav class="footer-column m-b-3">
+            <div class="col-12 col-sm-6 col-md-3">
+                <nav class="footer-column mb-4">
                     <h2 class="h5">Stay Connected</h2>
                     <div class="social-icons">
                         <a href="#"><span class="pl-material pl-facebook"></span></a>
@@ -93,18 +93,18 @@
                     </div>
                 </nav>
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-12 col-sm-6">
                 <div class="footer-column">
                     {{ LayoutContainer.show("Ceres::Footer.RowOne") }}
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-12 col-sm-6">
                 <div class="footer-column row">
                     {% set rowTwo = LayoutContainer.show("Ceres::Footer.RowTwo") %}
                     
                     {{ rowTwo }}
 
-                    <div class="col-xs-12{% if rowTwo|trim is not empty %} col-sm-6 col-lg-12{% endif %}">
+                    <div class="col-12{% if rowTwo|trim is not empty %} col-sm-6 col-lg-12{% endif %}">
                         {{ LayoutContainer.show("Ceres::Footer.RowThree") }}
                     </div>
                 </div>
@@ -120,7 +120,7 @@
 
         <div class="container-max footer-content">
             <div class="row">
-                <div class="col-xs-12">
+                <div class="col-12">
                     {{ footerContainer | raw }}
                 </div>
             </div>
@@ -132,15 +132,15 @@
 <div class="plentylions-link">
     <div class="container-max footer-content">
         <div class="row">
-            <div class="col-xs-12"><hr></div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-12"><hr></div>
+            <div class="col-12 col-md-6">
                 <p>
                     <a href="https://plenty-lions.de" class="plenty-link" target="_blank">
                         plentymarkets Template von <img src="{{ plugin_path('Legend') }}/images/plentymarkets_template.png" alt="plentymarkets Template von plenty lions"> Plenty Lions
                     </a>
                 </p>
             </div>
-            <div class="col-xs-12 col-md-6">
+            <div class="col-12 col-md-6">
                 <p>
                     Alle genannten Preise verstehen sich inkl. MwSt. zzgl. Versand<br>*innerhalb Deutschlands. ** Die angegebene Lieferzeit gilt für Lieferungen innerhalb Deutschlands, Lieferzeiten für andere Länder finden Sie unter <a href="http://www.hobea.de/ueber-uns/zahlung-und-versand/">"Zahlung und Versand"</a>
                 </p>
