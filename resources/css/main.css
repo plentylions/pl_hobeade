@@ -9,6 +9,13 @@
     color: #ff0f5b;
 }
 
+.navbar .toggle-basket-preview .pl-material.pl-outline-shopping_cart{
+    font-size: 40px;
+}
+.navbar .toggle-basket-preview .pl-material.pl-outline-shopping_cart:before{
+    content: "\e928";
+}
+
 .cmp-product-thumb .crossprice:before{
     content: 'UVP:\00a0';
     display: inline-block;
