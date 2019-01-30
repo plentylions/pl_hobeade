@@ -8,3 +8,8 @@
 .plentylions-link a:hover{
     color: #ff0f5b;
 }
+
+.cmp-product-thumb .crossprice:before{
+    content: 'UVP:\00a0';
+    display: inline-block;
+}
