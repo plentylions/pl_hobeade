@@ -28,3 +28,19 @@
     content: 'UVP:\00a0';
     display: inline-block;
 }
+
+@media (max-width: 767px){
+  .home .widget-image-box{
+    max-width: 350px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 575.98px){
+  .home .widget-image-box{
+    max-width: 320px;
+  }
+  .home .widget-image-box.widget-image-box-block-caption>.widget-inner{
+    padding: 40% 0 0 0;
+  }
+}
