@@ -9,10 +9,18 @@
     color: #ff0f5b;
 }
 
+.pl_topline{
+  background: #EBEBEB;
+  padding: 4px;
+}
+.pl_topline .item {
+    margin: 0 3px;
+}
+
 .navbar .toggle-basket-preview .pl-material.pl-outline-shopping_cart{
     font-size: 40px;
 }
-.navbar .toggle-basket-preview .pl-material.pl-outline-shopping_cart:before{
+.toggle-basket-preview .pl-material.pl-outline-shopping_cart:before{
     content: "\e928";
 }
 

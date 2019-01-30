@@ -43,7 +43,7 @@ class HobeaDeServiceProvider extends ServiceProvider
             $partial->set('footer', 'Ceres::PageDesign.Partials.Footer');
 
             $partial->set('head', 'Legend::PageDesign.Partials.Head');
-            $partial->set('header', 'Legend::PageDesign.Partials.Header.Header');
+            $partial->set('header', 'HobeaDe::PageDesign.Partials.Header.Header');
             $partial->set('page-design', 'Legend::PageDesign.PageDesign');
             $partial->set('footer', 'HobeaDe::PageDesign.Partials.Footer');
         }, self::PRIORITY);
