@@ -4,6 +4,13 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
     font-family: Custom-Font, 'Open Sans', sans-serif;
 }
 
+.category-description a, .single .tab-content a{
+    color: #ff0f5b;
+}
+.category-description a:hover, .single .tab-content a:hover{
+    text-decoration: underline;
+}
+
 .single .articlenumber{
     display: none;
 }
