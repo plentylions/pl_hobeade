@@ -29,6 +29,11 @@
     display: inline-block;
 }
 
+/* Newsletter widget */
+.widget-newsletter .btn-primary{
+    padding: 0.75rem 1rem;
+}
+
 @media (max-width: 767px){
   .home .widget-image-box{
     max-width: 350px;
