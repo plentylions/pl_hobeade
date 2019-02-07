@@ -80,4 +80,7 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
   .home .widget-image-box.widget-image-box-block-caption>.widget-inner{
     padding: 40% 0 0 0;
   }
+  .widget-image-carousel.widget-primary .widget-caption h2, .widget-image-carousel.widget-primary .widget-caption .h2, .widget-image-carousel.widget-primary:hover .widget-caption h2, .widget-image-carousel.widget-primary:hover .widget-caption .h2{
+      font-size: 1.5rem !important;
+  }
 }
