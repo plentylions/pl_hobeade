@@ -1,7 +1,7 @@
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
 #mainNavbarCollapsable ul.mainmenu > li > a,
 .sidebar-categories .category-title-side, .sidebar-title-block{
-    font-family: Custom-Font, 'Open Sans', sans-serif;
+    font-family: Custom-Font, 'Open Sans', sans-serif !important;
 }
 
 .category-description a, .single .tab-content a{
