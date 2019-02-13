@@ -40,10 +40,15 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
     content: "\e928";
 }
 
-.cmp-product-thumb .crossprice:before{
+.cmp-product-thumb .price-view-port{
+    display: none;
+}
+/*.cmp-product-thumb .crossprice:before{
     content: 'UVP:\00a0';
     display: inline-block;
-}
+}*/
+
+
 /* Feedback */
 .cmp-product-thumb .feedback-stars-average.feedback-category-view{
     width: 100%;
