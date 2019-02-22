@@ -35,7 +35,7 @@ class HobeaDeServiceProvider extends ServiceProvider
 
         $dispatcher->listen( 'IO.ResultFields.*', function(ResultFieldTemplate $container) {
             $container->setTemplates([
-                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM   => 'HobeaDe::ResultFields.SingleItem'
+                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM   => 'HobeaDe::ResultFields.SingleItem' // variationProperties.*
             ]);
         }, self::PRIORITY);
 

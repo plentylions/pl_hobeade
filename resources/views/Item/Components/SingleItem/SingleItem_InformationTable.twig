@@ -1,0 +1,44 @@
+<!-- ITEM DESCRIPTION -->
+<div class="my-5">
+    <ul class="nav nav-tabs" role="tablist">
+        {% if 'item.description' in itemData or 'all' in itemData %}
+            <li class="nav-item" v-if="isDescriptionTabActive">
+                <a class="nav-link active" data-toggle="tab" :href="'#details-' +  currentVariation.variation.id" role="tab">{{ trans("Ceres::Template.singleItemDescription") }}</a>
+            </li>
+        {% endif %}
+
+        {% if 'variationProperties' in itemData %}
+            {% for prop in itemData.variationProperties %}
+                {% if prop.property.id in ['1', '2', '3'] and prop.values.value is not empty %}
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}" role="tab">{{ prop.property.names.name }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <slot name="AddDetailTabs"></slot>
+    </ul>
+
+    <div class="tab-content">
+        {% if 'item.description' in itemData or 'all' in itemData %}
+            <div class="tab-pane active overflow-auto" :id="'details-' + currentVariation.variation.id" role="tabpanel" v-if="isDescriptionTabActive">
+                <div class="my-4" v-html="currentVariation.texts.description">
+                </div>
+            </div>
+        {% endif %}
+
+        {% if 'variationProperties' in itemData %}
+            {% for prop in itemData.variationProperties %}
+                {% if prop.property.id in ['1', '2', '3'] and prop.values.value is not empty %}
+                    <div class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
+                        <div class="my-4">{{ prop.values.value|raw }}</div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+
+        <slot name="AddDetailTabsContent"></slot>
+    </div>
+</div>
+<!-- ./ITEM DESCRIPTION -->

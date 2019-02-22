@@ -1,0 +1,42 @@
+{% import "Ceres::Item.Macros.AgeRestriction" as AgeRestriction %}
+
+{% set itemData = config("Ceres.item.data") | split(', ') %}
+{% set enabledRoutes = config("IO.routing.enabled_routes") | split(', ') %}
+{% set shippingCat = config("Ceres.global.shippingCostsCategoryId") %}
+
+{% set lang = services.sessionStorage.getLang() %}
+
+<script type="x/template" id="vue-single-item">
+    <div>
+        <div class="single container-max page-content">
+            <div class="row mt-5 position-relative">
+                <div class="col-md-7">
+                    <slot name="ImageCarousel"></slot>
+                </div>
+                <div class="col-md-5 single-rightside">
+                    {% include "Legend::Item.Components.SingleItem.SingleItem_Details" %}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 my-5">
+                    {% include "HobeaDe::Item.Components.SingleItem.SingleItem_InformationTable" %}
+                </div>
+            </div>
+            {% if config("Legend.singleItemParallax.hide") == "false" %}
+            <div class="single-item-parallax">
+                <div class="row">
+                    <div class="col-12 text-center">
+                        {% if lang == "de" %}
+                            {{ config("Legend.singleItemParallax.html_de") | raw }}
+                        {% else %}
+                            {{ config("Legend.singleItemParallax.html_en") | raw }}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            {% endif %}
+            <slot name="ItemListContainer"></slot>
+            <slot name="FeedbackContainer"></slot>
+        </div>
+    </div>
+</script>
