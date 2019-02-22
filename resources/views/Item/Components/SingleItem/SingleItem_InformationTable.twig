@@ -1,7 +1,7 @@
 <!-- ITEM DESCRIPTION -->
 <div class="my-5">
     <ul class="nav nav-tabs" role="tablist">
-        {% if 'item.description' in item.documents[0].data or 'all' in item.documents[0].data %}
+       {% if 'item.description' in itemData or 'all' in itemData %}
             <li class="nav-item" v-if="isDescriptionTabActive">
                 <a class="nav-link active" data-toggle="tab" :href="'#details-' +  currentVariation.variation.id" role="tab">{{ trans("Ceres::Template.singleItemDescription") }}</a>
             </li>
@@ -10,7 +10,7 @@
         {% for prop in item.documents[0].data.variationProperties %}
             {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
                 <li class="nav-item">
-                    <a {% if 'item.description' not in item.documents[0].data and 'all' not in item.documents[0].data and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}'" role="tab">{{ prop.property.names.name }}</a>
+                    <a {% if 'item.description' not in itemData and 'all' not in itemData and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}'" role="tab">{{ prop.property.names.name }}</a>
                 </li>
             {% endif %}
         {% endfor %}
@@ -19,7 +19,7 @@
     </ul>
 
     <div class="tab-content">
-        {% if 'item.description' in item.documents[0].data or 'all' in item.documents[0].data %}
+        {% if 'item.description' in itemData or 'all' in itemData %}
             <div class="tab-pane active overflow-auto" :id="'details-' + currentVariation.variation.id" role="tabpanel" v-if="isDescriptionTabActive">
                 <div class="my-4" v-html="currentVariation.texts.description">
                 </div>
@@ -28,7 +28,7 @@
 
         {% for prop in item.documents[0].data.variationProperties %}
             {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
-                <div {% if 'item.description' not in item.documents[0].data and 'all' not in item.documents[0].data and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
+                <div {% if 'item.description' not in itemData and 'all' not in itemData and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
                     <div class="my-4">{{ prop.values.value|raw }}</div>
                 </div>
             {% endif %}
