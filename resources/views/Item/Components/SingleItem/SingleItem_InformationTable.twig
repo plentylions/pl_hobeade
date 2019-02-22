@@ -10,7 +10,7 @@
         {% for prop in item.documents[0].data.variationProperties %}
             {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
                 <li class="nav-item">
-                    <a {% if 'item.description' not in item.documents[0].data and 'all' not in item.documents[0].data and prop.property.id == 1 %}:class="{ 'active': !isDescriptionTabActive }"{% endif %} class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}'" role="tab">{{ prop.property.names.name }}</a>
+                    <a {% if 'item.description' not in item.documents[0].data and 'all' not in item.documents[0].data and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}'" role="tab">{{ prop.property.names.name }}</a>
                 </li>
             {% endif %}
         {% endfor %}
@@ -28,7 +28,7 @@
 
         {% for prop in item.documents[0].data.variationProperties %}
             {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
-                <div {% if 'item.description' not in item.documents[0].data and 'all' not in item.documents[0].data and prop.property.id == 1 %}:class="{ 'active': !isDescriptionTabActive }"{% endif %} class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
+                <div {% if 'item.description' not in item.documents[0].data and 'all' not in item.documents[0].data and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
                     <div class="my-4">{{ prop.values.value|raw }}</div>
                 </div>
             {% endif %}
