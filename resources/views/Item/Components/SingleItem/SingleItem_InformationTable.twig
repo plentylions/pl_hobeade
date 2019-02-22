@@ -1,46 +1,40 @@
 <!-- ITEM DESCRIPTION -->
 <div class="my-5">
     <ul class="nav nav-tabs" role="tablist">
-        {% if 'item.description' in itemData or 'all' in itemData %}
+        {% if 'item.description' in item.documents[0].data or 'all' in item.documents[0].data %}
             <li class="nav-item" v-if="isDescriptionTabActive">
                 <a class="nav-link active" data-toggle="tab" :href="'#details-' +  currentVariation.variation.id" role="tab">{{ trans("Ceres::Template.singleItemDescription") }}</a>
             </li>
         {% endif %}
 
-        qq{{ itemData.variationProperties|json_encode|raw }}
-        {% if 'variationProperties' in itemData %}
-        ok1
-            {% for prop in itemData.variationProperties %}
-            ok2
-                {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
-                ok3
-                    <li class="nav-item">
-                        <a class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}" role="tab">{{ prop.property.names.name }}</a>
-                    </li>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+        {% for prop in item.documents[0].data.variationProperties %}
+        ok2
+            {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
+            ok3
+                <li class="nav-item">
+                    <a class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}" role="tab">{{ prop.property.names.name }}</a>
+                </li>
+            {% endif %}
+        {% endfor %}
 
         <slot name="AddDetailTabs"></slot>
     </ul>
 
     <div class="tab-content">
-        {% if 'item.description' in itemData or 'all' in itemData %}
+        {% if 'item.description' in item.documents[0].data or 'all' in item.documents[0].data %}
             <div class="tab-pane active overflow-auto" :id="'details-' + currentVariation.variation.id" role="tabpanel" v-if="isDescriptionTabActive">
                 <div class="my-4" v-html="currentVariation.texts.description">
                 </div>
             </div>
         {% endif %}
 
-        {% if 'variationProperties' in itemData %}
-            {% for prop in itemData.variationProperties %}
-                {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
-                    <div class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
-                        <div class="my-4">{{ prop.values.value|raw }}</div>
-                    </div>
-                {% endif %}
-            {% endfor %}
-        {% endif %}
+        {% for prop in item.documents[0].data.variationProperties %}
+            {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
+                <div class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
+                    <div class="my-4">{{ prop.values.value|raw }}</div>
+                </div>
+            {% endif %}
+        {% endfor %}
 
         <slot name="AddDetailTabsContent"></slot>
     </div>
