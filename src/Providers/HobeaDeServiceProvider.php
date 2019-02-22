@@ -11,6 +11,7 @@ use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Templates\Twig;
 use IO\Extensions\Functions\Partial;
+use IO\Services\ItemSearch\Helper\ResultFieldTemplate;
 
 
 /**
@@ -30,6 +31,12 @@ class HobeaDeServiceProvider extends ServiceProvider
     {
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
+        }, self::PRIORITY);
+
+        $dispatcher->listen( 'IO.ResultFields.*', function(ResultFieldTemplate $container) {
+            $container->setTemplates([
+                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM   => 'HobeaDe::ResultFields.SingleItem'
+            ]);
         }, self::PRIORITY);
 
         $dispatcher->listen('IO.init.templates', function (Partial $partial)
