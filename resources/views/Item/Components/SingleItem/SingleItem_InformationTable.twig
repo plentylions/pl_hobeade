@@ -8,11 +8,9 @@
         {% endif %}
 
         {% for prop in item.documents[0].data.variationProperties %}
-        ok2
             {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
-            ok3
                 <li class="nav-item">
-                    <a class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}" role="tab">{{ prop.property.names.name }}</a>
+                    <a class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}'" role="tab">{{ prop.property.names.name }}</a>
                 </li>
             {% endif %}
         {% endfor %}
