@@ -8,8 +8,11 @@
         {% endif %}
 
         {% if 'variationProperties' in itemData %}
+        ok1
             {% for prop in itemData.variationProperties %}
-                {% if prop.property.id in ['1', '2', '3'] and prop.values.value is not empty %}
+            ok2
+                {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
+                ok3
                     <li class="nav-item">
                         <a class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}" role="tab">{{ prop.property.names.name }}</a>
                     </li>
@@ -30,7 +33,7 @@
 
         {% if 'variationProperties' in itemData %}
             {% for prop in itemData.variationProperties %}
-                {% if prop.property.id in ['1', '2', '3'] and prop.values.value is not empty %}
+                {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
                     <div class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
                         <div class="my-4">{{ prop.values.value|raw }}</div>
                     </div>
