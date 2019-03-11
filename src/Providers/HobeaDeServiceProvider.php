@@ -33,12 +33,6 @@ class HobeaDeServiceProvider extends ServiceProvider
             $container->addStyleTemplate('HobeaDe::Stylesheet');
         }, self::PRIORITY);
 
-        $dispatcher->listen( 'IO.ResultFields.*', function(ResultFieldTemplate $container) {
-            $container->setTemplates([
-                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM   => 'HobeaDe::ResultFields.SingleItem' // variationProperties.*
-            ]);
-        }, self::PRIORITY);
-
         $dispatcher->listen('IO.init.templates', function (Partial $partial)
         {
             pluginApp(Container::class)->register('Legend::PageDesign.Partials.Header.NavigationList.twig', NavigationCacheSettings::class);
@@ -58,11 +52,6 @@ class HobeaDeServiceProvider extends ServiceProvider
         $dispatcher->listen('IO.tpl.item', function (TemplateContainer $container)
         {
             $container->setTemplate('HobeaDe::Item.SingleItemWrapper');
-        }, self::PRIORITY);
-
-        $dispatcher->listen('IO.tpl.category.item', function (TemplateContainer $container)
-        {
-            $container->setTemplate('HobeaDe::Category.Item.CategoryItem');
         }, self::PRIORITY);
     }
 }
