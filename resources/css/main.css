@@ -4,6 +4,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
     font-family: Custom-Font, 'Open Sans', sans-serif !important;
 }
 
+.custom-select option:disabled{
+    color: rgb(200, 200, 200);
+}
+
 .category-description a, .single .tab-content a{
     color: #ff0f5b;
 }
@@ -50,6 +54,28 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
 
 
 /* Feedback */
+.cmp-product-thumb .special-tags .badge.circle.badge-offer{
+    visibility: hidden;
+    position: relative;
+}
+.cmp-product-thumb .special-tags .badge.circle.badge-offer:after{
+    visibility: visible;
+    position: absolute;
+    top: 0;
+    left: 0;
+    content: 'SALE';
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 0.4rem;
+    border-radius: 50%;
+    border: 1px solid #000;
+    color: #000 !important;
+    text-transform: uppercase;
+    font-weight: normal;
+    background-color: rgba(255,255,255,0.5) !important;
+    border-color: #ed1c2e !important;
+}
 .cmp-product-thumb .feedback-stars-average.feedback-category-view{
     width: 100%;
 }
