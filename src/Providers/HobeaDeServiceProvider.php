@@ -31,6 +31,7 @@ class HobeaDeServiceProvider extends ServiceProvider
     {
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
+            $container->addScriptTemplate('HobeaDe::Script');
         }, self::PRIORITY);
 
         $dispatcher->listen('IO.init.templates', function (Partial $partial)
