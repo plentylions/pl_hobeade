@@ -1,11 +1,13 @@
-{#
 {% set couponValue = '' %}
 {% for item in orderData.orderItems %}
   {% if item['typeId'] == 4 %}
-    {% set couponValue = '' %}
+    {% for prop in item['properties'] %}
+      {% if prop['typeId'] == 18 %}
+        {% set couponValue = prop['value'] %}
+      {% endif %}
+    {% endfor %}
   {% endif %}
 {% endfor %}
-#}
 
 <div id="qq-data" style="display:none;">
   {{ orderData|json_encode }}
@@ -26,7 +28,7 @@ event: 'Sale',
 net_price: {{ orderData.amounts[0].netTotal }},
 order_id: '{{ orderData.id }}',
 rate_number: 1,
-voucher_code: ''
+voucher_code: '{{ couponValue }}'
 });
 // End editable part
 
@@ -44,5 +46,5 @@ s.async = false; // always keep false for standard tracking
 // End editable part
 </script>
 <noscript>
-<img src="https://partners.webmasterplan.com/TrackOrder.aspx?site=12034&event=sale&net_price={{ orderData.amounts[0].netTotal }}&order_id={{ orderData.id }}&rate_number=1&voucher_code=" />
+<img src="https://partners.webmasterplan.com/TrackOrder.aspx?site=12034&event=sale&net_price={{ orderData.amounts[0].netTotal }}&order_id={{ orderData.id }}&rate_number=1&voucher_code={{ couponValue }}" />
 </noscript>
