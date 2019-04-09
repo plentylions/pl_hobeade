@@ -15,5 +15,14 @@
     "categories"        :   [3518],
     "type"              :   "theme",
     "require"           :   ["Legend"],
-    "serviceProvider"   :   "HobeaDe\\Providers\\HobeaDeServiceProvider"
+    "serviceProvider"   :   "HobeaDe\\Providers\\HobeaDeServiceProvider",
+    "dataProviders":
+    [
+        {
+            "key": "HobeaDe\\Containers\\TrackingOrderConfirmation",
+            "name": "HobeaDe Tracking order confirmation",
+            "description": "HobeaDe Tracking order confirmation",
+            "defaultLayoutContainer": "OrderConfirmation.BeforeOrderDetails"
+        }
+    ]
 }

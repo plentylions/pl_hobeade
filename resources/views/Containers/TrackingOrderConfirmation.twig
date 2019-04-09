@@ -1,0 +1,43 @@
+{#
+{% set couponValue = '' %}
+{% for item in orderData.orderItems %}
+  {% if item['typeId'] == 4 %}
+    {% set couponValue = '' %}
+  {% endif %}
+{% endfor %}
+#}
+
+<!-- Affilinet Trackingcode -->
+<script>
+(function (w, d, namespace, domain, progId, tagId, undefined) {
+w[namespace] = w[namespace] || {}; var act = w[namespace], payload = []; 
+act.tags = act.tags || []; act.tags.push(tagId, payload);
+var protocol = d.location.protocol;
+
+// Start editable part
+payload.push({
+module: 'OrderTracking',
+event: 'Sale',
+net_price: {{ orderData.amounts[0].netTotal }},
+order_id: '{{ orderData.id }}',
+rate_number: 1,
+voucher_code: ''
+});
+// End editable part
+
+if (act.get === undefined) {
+var s = d.createElement('script');
+s.type = 'text/javascript';
+s.src = protocol + '//' + domain + '/' + 'affadvc.aspx?ns=' + namespace + 
+'&dm=' + domain + '&site=' + progId + '&tag=' + tagId;
+s.async = false; // always keep false for standard tracking
+(d.getElementsByTagName('body')[0] || d.getElementsByTagName('head')[0]).appendChild(s);
+} else { act.get(w, d, progId, tagId); }
+})(window, document,
+// Start editable part
+'aff_act_1.0', 'act.webmasterplan.com', 12034, 'TAG-ID-1');
+// End editable part
+</script>
+<noscript>
+<img src="https://partners.webmasterplan.com/TrackOrder.aspx?site=12034&event=sale&net_price={{ orderData.amounts[0].netTotal }}&order_id={{ orderData.id }}&rate_number=1&voucher_code=" />
+</noscript>
