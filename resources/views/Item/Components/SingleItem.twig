@@ -10,7 +10,7 @@
         <div class="single container-max page-content">
             <div class="row mt-5 position-relative">
                 <div class="col-md-7">
-                    <slot name="ImageCarousel"></slot>
+                    <slot name="image-carousel"></slot>
                 </div>
                 <div class="col-md-5 single-rightside">
                     {% include "Legend::Item.Components.SingleItem.SingleItem_Details" %}
@@ -34,8 +34,10 @@
                 </div>
             </div>
             {% endif %}
-            <slot name="ItemListContainer"></slot>
-            <slot name="FeedbackContainer"></slot>
+            <div class="sinle-item-list-container">
+                <slot name="item-list-container"></slot>
+            </div>
+            <slot name="feedback-container"></slot>
         </div>
     </div>
 </script>

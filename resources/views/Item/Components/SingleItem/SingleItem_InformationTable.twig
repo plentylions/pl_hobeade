@@ -1,7 +1,7 @@
 <!-- ITEM DESCRIPTION -->
 <div class="my-5">
     <ul class="nav nav-tabs" role="tablist">
-       {% if 'item.description' in itemData or 'all' in itemData %}
+        {% if 'item.description' in itemData or 'all' in itemData %}
             <li class="nav-item" v-if="isDescriptionTabActive">
                 <a class="nav-link active" data-toggle="tab" :href="'#details-' +  currentVariation.variation.id" role="tab">{{ trans("Ceres::Template.singleItemDescription") }}</a>
             </li>
@@ -34,7 +34,7 @@
             {% endif %}
         {% endfor %}
 
-        <slot name="AddDetailTabsContent"></slot>
+        <slot name="add-detail-tabs-content"></slot>
     </div>
 </div>
 <!-- ./ITEM DESCRIPTION -->

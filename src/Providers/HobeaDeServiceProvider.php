@@ -2,8 +2,6 @@
 
 namespace HobeaDe\Providers;
 
-use Ceres\Caching\NavigationCacheSettings;
-use Ceres\Caching\SideNavigationCacheSettings;
 use IO\Services\ContentCaching\Services\Container;
 use IO\Helper\TemplateContainer;
 use IO\Helper\ResourceContainer;
@@ -36,14 +34,6 @@ class HobeaDeServiceProvider extends ServiceProvider
 
         $dispatcher->listen('IO.init.templates', function (Partial $partial)
         {
-            pluginApp(Container::class)->register('Legend::PageDesign.Partials.Header.NavigationList.twig', NavigationCacheSettings::class);
-            pluginApp(Container::class)->register('Legend::PageDesign.Partials.Header.SideNavigation.twig', SideNavigationCacheSettings::class);
-
-            $partial->set('head', 'Ceres::PageDesign.Partials.Head');
-            $partial->set('header', 'Ceres::PageDesign.Partials.Header.Header');
-            $partial->set('page-design', 'Ceres::PageDesign.PageDesign');
-            $partial->set('footer', 'Ceres::PageDesign.Partials.Footer');
-
             $partial->set('head', 'Legend::PageDesign.Partials.Head');
             $partial->set('header', 'HobeaDe::PageDesign.Partials.Header.Header');
             $partial->set('page-design', 'HobeaDe::PageDesign.PageDesign');
@@ -57,7 +47,7 @@ class HobeaDeServiceProvider extends ServiceProvider
 
         $dispatcher->listen( 'IO.ResultFields.*', function(ResultFieldTemplate $container) {
             $container->setTemplates([
-                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM   => 'HobeaDe::ResultFields.SingleItem',
+                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM => 'HobeaDe::ResultFields.SingleItem', // variationProperties.property.*
             ]);
         }, self::PRIORITY);
     }
