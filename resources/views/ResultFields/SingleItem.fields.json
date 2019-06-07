@@ -33,7 +33,7 @@
     "variation.bundleType",
     "variation.unitCombinationId",
 
-    "variationProperties.property.*",
+    "variationProperties.*",
 
     "texts.*",
 
