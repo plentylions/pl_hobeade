@@ -33,8 +33,19 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
   background: #EBEBEB;
   padding: 4px;
 }
+.pl_topline .fa, .pl_topline .pl-material{
+    margin: 0;
+}
 .pl_topline .item {
     margin: 0 3px;
+}
+@media (max-width: 767px) {
+    .pl_topline .flex-cont{
+        justify-content: space-around !important;
+    }
+    .pl_topline .item .text{
+        display: none;
+    }
 }
 
 .navbar .toggle-basket-preview .pl-material.pl-outline-shopping_cart{
