@@ -35,6 +35,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
 }
 .pl_topline .fa, .pl_topline .pl-material{
     margin: 0;
+    vertical-align: middle;
+}
+.pl_topline .item .text{
+    vertical-align: middle;
 }
 .pl_topline .item {
     margin: 0 3px;
