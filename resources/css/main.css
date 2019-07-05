@@ -58,15 +58,28 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
 .toggle-basket-preview .pl-material.pl-outline-shopping_cart:before{
     content: "\e928";
 }
+.top-bar .controls-list .control-user{
+    margin-left: 0;
+}
+@media (min-width: 576px){
+    .searchCol .search-box-inner{
+        display: block !important;
+    }
+}
+@media (max-width: 575.98px){
+    .searchCol .search-box-inner{
+        display: none;
+    }
+}
+@media (max-width: 1200px) {
+    .header-custom-html{
+        padding-left: 15px;
+    }
+}
 
 .cmp-product-thumb .price-view-port{
     display: none;
 }
-/*.cmp-product-thumb .crossprice:before{
-    content: 'UVP:\00a0';
-    display: inline-block;
-}*/
-
 
 /* Feedback */
 .cmp-product-thumb .special-tags .badge.circle.badge-offer{
