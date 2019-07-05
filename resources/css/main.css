@@ -40,12 +40,19 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
 .pl_topline .item .text{
     vertical-align: middle;
 }
-.pl_topline .item {
-    margin: 0 3px;
+.pl_topline .item:not(:last-child) {
+    margin-right: 32px;
+}
+.pl_topline .pl-material,
+.pl_topline .fa{
+    font-size: 1.2rem !important;
 }
 @media (max-width: 767px) {
     .pl_topline .flex-cont{
         justify-content: space-around !important;
+    }
+    .pl_topline .item{
+        margin-right: 0;
     }
     .pl_topline .item .text{
         display: none;
