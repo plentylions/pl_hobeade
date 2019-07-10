@@ -10,9 +10,11 @@ $(function () {
 
         $(window).scroll(function () {
             if ($(window).scrollTop() > stickyHeaderTop && $('#page-header').is(':visible')) {
+                $('body').css("margin-top", $('#page-header').height());
                 $('#page-header').addClass('sticky');
             } else {
                 $('#page-header').removeClass('sticky');
+                $('body').css("margin-top", 0);
             }
         });
     }
