@@ -4,14 +4,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6,
     font-family: Custom-Font, 'Open Sans', sans-serif !important;
 }
 
-#page-header.sticky {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 1069;
-}
-
 .custom-select option:disabled{
     color: rgb(200, 200, 200);
 }
