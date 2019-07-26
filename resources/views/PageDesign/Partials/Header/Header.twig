@@ -29,7 +29,13 @@
             </div>
         </div>
     </div>
-    {{ headerContainer | raw }}
+    <div class="container-max">
+        <div class="row">
+            <div class="col-12">
+                {{ headerContainer | raw }}
+            </div>
+        </div>
+    </div>
 </header>
 {% endif %}
 
@@ -52,7 +58,6 @@
         {% set initialCategory = category %}
     {% endif %}
     <mobile-navigation
-            navigation-tree-data="{{ categories | json_data }}"
             :initial-category="{{ initialCategory | json_encode }}"
             template="#vue-mobile-navigation">
     </mobile-navigation>

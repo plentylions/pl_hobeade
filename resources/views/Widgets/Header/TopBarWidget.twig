@@ -123,12 +123,10 @@
 
     <div class="container-max page-header">
         <div class="row mx-0">
-            {% if enableCurrencySelect %}
+            {% if enableCurrencySelect and not isPreview %}
                 <div id="currencySelect" class="cmp cmp-currency-select collapse">
-                    {% if not isPreview %}
                     <div class="container-max">
                         <div class="row py-3">
-
                             <div class="currency-list col-12">
                                 <div class="list-title">
                                     <strong>{{ Twig.print('trans("Ceres::Template.headerCurrency")') }}</strong>
@@ -153,19 +151,18 @@
                             </div>
                         </div>
                     </div>
-                    {% endif %}
                 </div>
             {% endif %}
 
-            {% if enableLanguageSelect or enableShippingCountrySelect %}
-                <shop-country-settings
-                        country-flag-prefix="flag-icon-"
-                        shipping-countries="{{ Twig.print('services.country.getActiveCountriesList() | filterFields(["id", "currLangName", "isoCode2", "states.id", "states.name"]) | json_data("activeCountriesList")') }}"
-                        :shipping-country-id="{{ Twig.print('services.checkout.getShippingCountryId() | json_encode') }}">
+            <shop-country-settings
+                    country-flag-prefix="flag-icon-"
+                    shipping-countries="{{ Twig.print('services.country.getActiveCountriesList() | filterFields(["id", "currLangName", "isoCode2", "states.id", "states.name"]) | json_data("activeCountriesList")') }}"
+                    :shipping-country-id="{{ Twig.print('services.checkout.getShippingCountryId() | json_encode') }}">
+                {% if enableLanguageSelect or enableShippingCountrySelect %}
                     <div id="countrySettings" class="cmp cmp-country-settings collapse">
                         <div class="container-max">
                             <div class="row py-3">
-                                {% if enableLanguageSelect %}
+                                {% if enableLanguageSelect and not isPreview %}
                                     <div class="col-12 {% if enableShippingCountrySelect %}col-lg-6{% else %}col-lg-12{% endif %}">
 
                                         <div class="language-settings">
@@ -173,7 +170,6 @@
                                                 <strong>{{ Twig.print('trans("Ceres::Template.headerSelectLanguage")') }}</strong>
                                                 <hr>
                                             </div>
-                                            {% if not isPreview %}
                                             {{ Twig.set("languageList", Twig.call("services.webstoreConfig.getActiveLanguageList")) }}
                                             {{ Twig.set("languageUrls", Twig.call("services.url.getLanguageURLs")) }}
                                             <ul>
@@ -192,7 +188,6 @@
                                                     </li>
                                                {{ Twig.endfor() }}
                                             </ul>
-                                            {% endif %}
                                         </div>
                                     </div>
                                 {% endif %}
@@ -210,8 +205,8 @@
                             </div>
                         </div>
                     </div>
-                </shop-country-settings>
-            {% endif %}
+                {% endif %}
+            </shop-country-settings>
         </div>
     </div>
 </div>

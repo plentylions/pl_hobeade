@@ -2,7 +2,6 @@
 
 namespace HobeaDe\Providers;
 
-use IO\Services\ContentCaching\Services\Container;
 use IO\Helper\TemplateContainer;
 use IO\Helper\ResourceContainer;
 use Plenty\Plugin\Events\Dispatcher;

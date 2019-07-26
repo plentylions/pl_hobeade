@@ -128,6 +128,20 @@
     </div>
 {% endif %}
 
+{% if config("Legend.cookieBar.Enable") == "true" %}
+<div class="cookie-bar-container">
+    <div class="container-max">
+        <div class="cookie-bar">
+            <span class="text">{{ trans('Legend::Template.cookieBarText') }}</span>
+            {% if config("Legend.cookieBar.Link") | trim is not empty %}
+                <a class="link" href="{{ config("Legend.cookieBar.Link") }}">{{ trans('Legend::Template.cookieBarLinkText') }}</a>
+            {% endif %}
+            <button class="cookie-bar-btn btn btn-primary">{{ trans('Legend::Template.cookieBarBtn') }}</button>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 {% if config("Legend.footer.hide_plentylions_link") == "false" %}
 <div class="plentylions-link">
     <div class="container-max footer-content">

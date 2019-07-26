@@ -15,7 +15,11 @@
             {% endif %}
         {% endfor %}
 
-       <slot name="add-detail-tabs"></slot>
+        <li class="nav-item" v-if="$slots['legend-feedback-container']">
+            <a class="nav-link" data-toggle="tab" href="#l-feedback-tab" role="tab">{{ trans("Legend::Template.singleFeedbackTab") }}</a>
+        </li>
+
+        <slot name="add-detail-tabs"></slot>
     </ul>
 
     <div class="tab-content">
@@ -33,6 +37,12 @@
                 </div>
             {% endif %}
         {% endfor %}
+
+        <div class="tab-pane" id="l-feedback-tab" role="tabpanel" v-if="$slots['legend-feedback-container']">
+            <div class="my-4">
+                <slot name="legend-feedback-container"></slot>
+            </div>
+        </div>
 
         <slot name="add-detail-tabs-content"></slot>
     </div>
