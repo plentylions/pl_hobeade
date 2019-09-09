@@ -43,7 +43,7 @@
                                 <li><a href="{{ urls.legalDisclosure }}">{{ trans("Ceres::Template.footerLegalDisclosure") }}</a></li>
                                 <li><a href="{{ urls.privacyPolicy }}">{{ trans("Ceres::Template.footerPrivacyPolicy", {"hyphen": "&shy;"}) }}</a></li>
                                 <li><a href="{{ urls.gtc }}">{{ trans("Ceres::Template.footerGtc") }}</a></li>
-                                {% if config("Ceres.contact.shop_mail") | length > 0 and config("Ceres.contact.shop_mail") != "your@email.com" %}
+                                {% if (config("Ceres.contact.shop_mail") | length > 0 and config("Ceres.contact.shop_mail") != "your@email.com") or config('IO.routing.category_contact') > 0 %}
                                     <li><a href="{{ urls.contact }}">{{ trans("Ceres::Template.footerContact") }}</a></li>
                                 {% endif %}
                             {% endautoescape %}

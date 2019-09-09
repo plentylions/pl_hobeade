@@ -18,20 +18,10 @@
 {% if headerContainer is empty %}
     {% include "Legend::PageDesign.Partials.Header.DefaultHeader" %}
 {% else %}
-<header id="page-header">
-    <div class="pl_topline">
-        <div class="container-max">
-            <div class="flex-cont d-flex justify-content-center flex-wrap">
-            <span class="item"><a href="tel:+4964037755030"><span class="pl-material pl-phone"></span><span class="text"> Fragen? +49 (0)6403 7755030</span></a></span>
-            <span class="item"><a href="mailto:info@hobea.de"><i class="fa fa-envelope" aria-hidden="true"></i><span class="text"> info@hobea.de</span></a></span>
-            <span class="item"><a href="https://www.instagram.com/hobea_germany/" target="_blank"><span class="pl-material pl-instagram"></span><span class="text"> Instagram</span></a></span>
-            <span class="item"><a href="https://www.facebook.com/hobea.germany/" target="_blank"><span class="pl-material pl-facebook"></span><span class="text"> Facebook</span></a></span>
-            </div>
-        </div>
-    </div>
+<header id="page-header" class="fixed-top">
     <div class="container-max">
         <div class="row">
-            <div class="col-12">
+            <div id="page-header-parent" class="col-12" data-header-offset>
                 {{ headerContainer | raw }}
             </div>
         </div>
@@ -57,8 +47,11 @@
     {% else %}
         {% set initialCategory = category %}
     {% endif %}
-    <mobile-navigation
-            :initial-category="{{ initialCategory | json_encode }}"
-            template="#vue-mobile-navigation">
-    </mobile-navigation>
+
+    {# set the initialCategory to the default category of the current item #}
+    {% if services.template.isCurrentTemplate("tpl.item") and defaultCategory is not null %}
+        {% set initialCategory = defaultCategory %}
+    {% endif %}
+
+    <mobile-navigation :initial-category="{{ initialCategory | json_encode }}"></mobile-navigation>
 </div>

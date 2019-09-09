@@ -37,6 +37,7 @@ class HobeaDeServiceProvider extends ServiceProvider
             $partial->set('header', 'HobeaDe::PageDesign.Partials.Header.Header');
             $partial->set('page-design', 'HobeaDe::PageDesign.PageDesign');
             $partial->set('footer', 'HobeaDe::PageDesign.Partials.Footer');
+            $partial->set('page-metadata', 'Legend::PageDesign.Partials.PageMetadata');
         }, self::PRIORITY);
 
         $dispatcher->listen('IO.tpl.item', function (TemplateContainer $container)
