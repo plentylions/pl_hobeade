@@ -30,25 +30,31 @@ class AwinExtension extends Twig_Extension
 
     public function trackAwin($orderData, $couponValue)
     {
-      $awc_cks=isset($_COOKIE['awc_cks']) ? $_COOKIE['awc_cks'] : ''; //read the cookie written by advertiser
-      $url = "https://www.awin1.com/sread.php?tt=ss&tv=2&merchant=17349";
-      $url .= "&amount=" . $orderData.amounts[0].netTotal;
-      $url .= "&ch=";
-      $url .= "aw"; // If the conversion does not belong to a specific channel according your measures
-      if (isset($awc_cks)) {
-      $url .= "&cks=" . $awc_cks; // Populate the Awin click checksum if one is associated with the conversion
+      if( empty($couponValue) ){
+        $couponValue = '';
       }
-      $url .= "&cr=" . $orderData.amounts[0].currency;
-      $url .= "&ref=" . $orderData.id;
-      $url .= "&parts=S0001:" . $orderData.amounts[0].netTotal;
-      $url .= "&testmode=0&vc=" . $couponValue;
-      $c = curl_init();
-      curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 10);
-      curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
-      curl_setopt($c, CURLOPT_URL, $url);
-      curl_exec($c);
-      curl_close($c);
+      if( !empty($orderData) ){
+        $awc_cks=isset($_COOKIE['awc_cks']) ? $_COOKIE['awc_cks'] : ''; //read the cookie written by advertiser
+        $url = "https://www.awin1.com/sread.php?tt=ss&tv=2&merchant=17349";
+        $url .= "&amount=" . $orderData.amounts[0].netTotal;
+        $url .= "&ch=";
+        $url .= "aw"; // If the conversion does not belong to a specific channel according your measures
+        if (isset($awc_cks)) {
+        $url .= "&cks=" . $awc_cks; // Populate the Awin click checksum if one is associated with the conversion
+        }
+        $url .= "&cr=" . $orderData.amounts[0].currency;
+        $url .= "&ref=" . $orderData.id;
+        $url .= "&parts=S0001:" . $orderData.amounts[0].netTotal;
+        $url .= "&testmode=0&vc=" . $couponValue;
+        $c = curl_init();
+        curl_setopt($c, CURLOPT_CONNECTTIMEOUT, 10);
+        curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($c, CURLOPT_URL, $url);
+        curl_exec($c);
+        curl_close($c);
 
-      return true;
+        return true;
+      }
+      return false;
     }
 }
