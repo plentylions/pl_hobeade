@@ -10,6 +10,8 @@ use Plenty\Plugin\Templates\Twig;
 use IO\Extensions\Functions\Partial;
 use IO\Services\ItemSearch\Helper\ResultFieldTemplate;
 
+use HobeaDe\Extensions\AwinExtension;
+
 
 /**
  * Class HobeaDeServiceProvider
@@ -26,6 +28,8 @@ class HobeaDeServiceProvider extends ServiceProvider
 
     public function boot(Twig $twig, Dispatcher $dispatcher)
     {
+        $twig->addExtension(AwinExtension::class);
+
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
             $container->addScriptTemplate('HobeaDe::Script');
