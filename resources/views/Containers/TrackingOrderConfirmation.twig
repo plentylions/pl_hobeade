@@ -43,3 +43,26 @@ s.async = false; // always keep false for standard tracking
 <noscript>
 <img src="https://partners.webmasterplan.com/TrackOrder.aspx?site=12034&event=sale&net_price={{ orderData.amounts[0].netTotal }}&order_id={{ orderData.id }}&rate_number=1&voucher_code={{ couponValue }}" />
 </noscript>
+
+{# AWIN #}
+{% set awin = trackAwin(orderData, couponValue) %}
+
+<!-- ConversionTag (obligatorisch) -->
+<script type="text/javascript">
+//<![CDATA[
+/*** Do not change ***/
+var AWIN = {};
+AWIN.Tracking = {};
+AWIN.Tracking.Sale = {};
+/*** Set your transaction parameters ***/
+AWIN.Tracking.Sale.amount = "{{ orderData.amounts[0].netTotal }}";
+AWIN.Tracking.Sale.channel = "aw";
+AWIN.Tracking.Sale.currency = "{{ orderData.amounts[0].currency }}";
+AWIN.Tracking.Sale.orderRef = "{{ orderData.id }}";
+AWIN.Tracking.Sale.parts = "S0001:{{ orderData.amounts[0].netTotal }}";
+AWIN.Tracking.Sale.voucher = "{{ couponValue }}";
+//]]>
+</script>
+<!-- FallbackConversionPixel (obligatorisch) -->
+<img border="0" height="0"
+src="https://www.awin1.com/sread.img?tt=ns&tv=2&merchant=17349&amount={{ orderData.amounts[0].netTotal }}&ch=aw&cr={{ orderData.amounts[0].currency }}&parts=S0001:{{ orderData.amounts[0].netTotal }}&ref={{ orderData.id }}&vc={{ couponValue }}" style="display: none;" width="0"> 
