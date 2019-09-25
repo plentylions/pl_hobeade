@@ -9,6 +9,7 @@ use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Templates\Twig;
 use IO\Extensions\Functions\Partial;
 use IO\Services\ItemSearch\Helper\ResultFieldTemplate;
+use IO\Helper\ComponentContainer;
 
 use HobeaDe\Extensions\AwinExtension;
 
@@ -33,6 +34,13 @@ class HobeaDeServiceProvider extends ServiceProvider
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
             $container->addScriptTemplate('HobeaDe::Script');
+        }, self::PRIORITY);
+
+        $dispatcher->listen('IO.Component.Import', function (ComponentContainer $componentContainer)
+        {
+            if($componentContainer->getOriginComponentTemplate() == 'Legend::Item.Components.VariationSelect'){
+                $componentContainer->setNewComponentTemplate('HobeaDe::Item.Components.VariationSelect');
+            }
         }, self::PRIORITY);
 
         $dispatcher->listen('IO.init.templates', function (Partial $partial)
