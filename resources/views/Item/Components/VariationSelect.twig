@@ -1,6 +1,6 @@
 <script type="x/template" id="vue-variation-select">
     <div>
-        <div v-if="attributes.length || Object.keys(possibleUnits).length > 1" class="row">
+        <div v-if="attributes.length || (Object.keys(possibleUnits).length > 1 && isContentVisible)" class="row">
             <div class="col-12 variation-select" v-for="attribute in attributes">
                 <!-- dropdown -->
                 <label v-if="attribute.type === 'dropdown'" v-tooltip="isTextCut(attribute.name)" data-toggle="tooltip" data-placement="top" :title="attribute.name">${ attribute.name }</label>
@@ -47,7 +47,7 @@
             </div>
 
             <!-- units -->
-            <div class="col-12 variation-select" v-if="Object.keys(possibleUnits).length > 1">
+            <div class="col-12 variation-select" v-if="Object.keys(possibleUnits).length > 1 && isContentVisible">
                 <div class="input-unit">
                     <select class="custom-select" @change="selectUnit($event.target.value)">
                         <option
