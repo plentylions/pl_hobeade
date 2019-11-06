@@ -68,7 +68,6 @@
     "variation.availability.id",
     "variation.availability.names.*",
     "variation.availableUntil",
-    "variation.availability.mappedAvailability",
     "variation.bundleType",
     "variation.externalId",
     "variation.heightMM",
