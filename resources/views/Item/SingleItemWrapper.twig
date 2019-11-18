@@ -31,29 +31,6 @@
                     "@type"         : "Organization",
                     "name"          : "{{ itemData.item.manufacturer.externalName }}"
                 },
-                "model": {
-                    "@type"         : "ProductModel",
-                    "isVariantOf"   : {
-                        "@type"         : "ProductModel",
-                        "name"        : "{{ itemData.item.id }}",
-                        "description" : "{{ itemData.texts.description | striptags | filterTabs }}",
-                        "image"       : "{{ itemData.images.all[0].urlPreview }}",
-                        "sku"         : "{{ item.documents[0].data.variation.number }}",
-                        "brand"       : {
-                            "@type"         : "Organization",
-                            "name"          : "{{ itemData.item.manufacturer.externalName }}"
-                        }
-                    },
-                    "model"         : "{{ itemData.variation.model }}",
-                    "name"          : "{{ ItemName.get(itemData | itemName, itemData.variation.bundleType) | trim }}",
-                    "description"   : "{{ itemData.texts.description | striptags | filterTabs }}",
-                    "image"         : "{{ itemData.images.all[0].urlPreview }}",
-                    "sku"           : "{{ item.documents[0].data.variation.number }}",
-                    "brand"         : {
-                        "@type"         : "Organization",
-                        "name"          : "{{ itemData.item.manufacturer.externalName }}"
-                    }
-                },
                 "offers": {
                     "@type"         : "Offer",
                     "priceCurrency" : "{{ itemData.prices.default.currency }}",
