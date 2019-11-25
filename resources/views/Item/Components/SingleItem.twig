@@ -13,7 +13,7 @@
                         <slot name="image-carousel"></slot>
                     </div>
                     <div class="col-12 col-md-5 single-rightside">
-                        <div {% if config("Legend.singleItemStickBlock.disable") == "false" %}v-stick-in-parent data-sticky-container=".single-rightside"{% endif %}>
+                        <div {% if config("Legend.singleItemStickBlock.disable") == "false" %}v-stick-in-parent{% endif %}>
                             {% include "Legend::Item.Components.SingleItem.SingleItem_Details" %}
                         </div>
                     </div>
