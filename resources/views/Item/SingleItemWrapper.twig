@@ -106,7 +106,7 @@
 
 {% block PageBody %}
     {{ set_item_data_base(item.documents[0].data) }}
-    {{ component("Legend::Item.Components.SingleItem") }}
+    {{ component("HobeaDe::Item.Components.SingleItem") }}
 
     {% set shopBuilderTemplate = "" %}
     {% set currentCategory = services.category.getCurrentCategory() %}
@@ -119,13 +119,13 @@
     {% if item.documents[0].data.item.add_cms_page > 0 and not isShopBuilder %}
         {# Item template is configured for the item #}
         {% set template %}
-            {% include [category_template( item.documents[0].data.item.add_cms_page, lang, webstoreConfig.webstoreId ), "Legend::Item.SingleItemView"] %}
+            {% include [category_template( item.documents[0].data.item.add_cms_page, lang, webstoreConfig.webstoreId ), "HobeaDe::Item.SingleItemView"] %}
         {% endset %}
 
         {% if template | trim is not empty %}
             {{ template }}
         {% else %}
-            {% include "Legend::Item.SingleItemView" %}
+            {% include "HobeaDe::Item.SingleItemView" %}
         {% endif %}
     {% elseif shopBuilderTemplate | trim is not empty or isShopBuilder %}
         {# Shopbuilder template #}
@@ -149,7 +149,7 @@
         {# Empty shop builder template is loading #}
     {% else %}
         {# No item template defined in ShopBuilder => use default template from plugin #}
-        {% include "Legend::Item.SingleItemView" %}
+        {% include "HobeaDe::Item.SingleItemView" %}
     {% endif %}
 
 {% endblock %}
