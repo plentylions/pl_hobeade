@@ -4,6 +4,28 @@
 
 {% block PartialHead %}
     {% set itemData = item.documents[0].data %}
+
+    {% set gtin8 = '' %}
+    {% set gtin13 = '' %}
+    {% set gtin14 = '' %}
+    {% if itemData.barcodes | length > 0 %}
+        {% for barcode in itemData.barcodes %}
+            {% if gtin8 | trim is empty and barcode.type == "GTIN_8" %}
+                {% set gtin8 = barcode.code %}
+            {% endif %}
+        {% endfor %}
+        {% for barcode in itemData.barcodes %}
+            {% if gtin13 | trim is empty and barcode.type == "GTIN_13" %}
+                {% set gtin13 = barcode.code %}
+            {% endif %}
+        {% endfor %}
+        {% for barcode in itemData.barcodes %}
+            {% if gtin14 | trim is empty and barcode.type == "GTIN_14" %}
+                {% set gtin14 = barcode.code %}
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
     {% embed getPartial('page-metadata') %}
         {% block title          ItemName.get(itemData | itemName, itemData.variation.bundleType) %}
         {% block description    itemData.texts.metaDescription %}
@@ -16,13 +38,22 @@
                 "@type"         : "Product",
                 "@id"           : "{{ itemData.variation.id }}",
                 "name"          : "{{ ItemName.get(itemData | itemName, itemData.variation.bundleType) | trim }}",
-                "category"      : "{{ defaultCategory.details[0].name | raw  }}",
+                "category"      : "{{ defaultCategory.details[0].name }}",
                 "releaseDate"   : "{{ itemData.variation.releasedAt }}",
                 "image"         : "{{ itemData.images.all[0].urlPreview }}",
                 "identifier"    : "{{ itemData.variation.id }}",
                 "description"   : "{{ itemData.texts.description | striptags | filterTabs }}",
                 "disambiguatingDescription" : "{{ itemData.texts.shortDescription }}",
                 "sku": "{{ item.documents[0].data.variation.number }}",
+                {% if gtin8 | trim is not empty %}
+                "gtin8": "{{ gtin8 }}",
+                {% endif %}
+                {% if gtin13 | trim is not empty %}
+                "gtin13": "{{ gtin13 }}",
+                {% endif %}
+                {% if gtin14 | trim is not empty %}
+                "gtin14": "{{ gtin14 }}",
+                {% endif %}
                 "brand"  : {
                     "@type"         : "Organization",
                     "name"          : "{{ itemData.item.manufacturer.externalName }}"
@@ -38,12 +69,12 @@
                     {% if itemData.prices.default.baseLot > 0 %}
                     "priceSpecification": {
                         "@type": "UnitPriceSpecification",
-                        "price": "{{ item.documents[0].data.prices.default.baseSinglePrice | number_format(2, '.', '') }}",
+                        "price": "{{ itemData.prices.default.price.value | number_format(2, '.', '') }}",
                         "priceCurrency": "{{ item.documents[0].data.prices.default.currency }}",
                         "referenceQuantity": {
                             "@type": "QuantitativeValue",
-                            "value": "{{ item.documents[0].data.prices.default.baseLot }}",
-                            "unitCode": "{{ item.documents[0].data.prices.default.baseUnit }}"
+                            "value": "{{ itemData.unit.content }}",
+                            "unitCode": "{{ itemData.unit.unitOfMeasurement }}"
                         }
                     },
                     {% endif %}
@@ -75,7 +106,7 @@
 
 {% block PageBody %}
     {{ set_item_data_base(item.documents[0].data) }}
-    {{ component("HobeaDe::Item.Components.SingleItem") }}
+    {{ component("Legend::Item.Components.SingleItem") }}
 
     {% set shopBuilderTemplate = "" %}
     {% set currentCategory = services.category.getCurrentCategory() %}
@@ -88,13 +119,13 @@
     {% if item.documents[0].data.item.add_cms_page > 0 and not isShopBuilder %}
         {# Item template is configured for the item #}
         {% set template %}
-            {% include [category_template( item.documents[0].data.item.add_cms_page, lang, webstoreConfig.webstoreId ), "HobeaDe::Item.SingleItemView"] %}
+            {% include [category_template( item.documents[0].data.item.add_cms_page, lang, webstoreConfig.webstoreId ), "Legend::Item.SingleItemView"] %}
         {% endset %}
 
         {% if template | trim is not empty %}
             {{ template }}
         {% else %}
-            {% include "HobeaDe::Item.SingleItemView" %}
+            {% include "Legend::Item.SingleItemView" %}
         {% endif %}
     {% elseif shopBuilderTemplate | trim is not empty or isShopBuilder %}
         {# Shopbuilder template #}
@@ -106,6 +137,8 @@
                         item-data="{{ item | json_data }}"
                         attributes-data="{{ attributes | json_data }}"
                         variations="{{ variations | json_data }}"
+                        :please-select-option-variation-id="{{ dynamicVariationId }}"
+                        :init-please-select-option="{{ initPleaseSelectOption | json_encode }}"
                         v-slot="slotProps">
                         {{ shopBuilderTemplate | raw }}
                     </single-item>
@@ -116,7 +149,7 @@
         {# Empty shop builder template is loading #}
     {% else %}
         {# No item template defined in ShopBuilder => use default template from plugin #}
-        {% include "HobeaDe::Item.SingleItemView" %}
+        {% include "Legend::Item.SingleItemView" %}
     {% endif %}
 
 {% endblock %}
