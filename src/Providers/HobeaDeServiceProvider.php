@@ -9,6 +9,9 @@ use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Templates\Twig;
 use IO\Extensions\Functions\Partial;
 use IO\Helper\ComponentContainer;
+use Plenty\Modules\ShopBuilder\Contracts\ContentWidgetRepositoryContract;
+
+use HobeaDe\Widgets\WidgetCollection;
 
 use HobeaDe\Extensions\AwinExtension;
 
@@ -24,6 +27,12 @@ class HobeaDeServiceProvider extends ServiceProvider
     public function boot(Twig $twig, Dispatcher $dispatcher)
     {
         $twig->addExtension(AwinExtension::class);
+
+        $widgetRepository = pluginApp(ContentWidgetRepositoryContract::class);
+        $widgetClasses = WidgetCollection::all();
+        foreach ($widgetClasses as $widgetClass) {
+            $widgetRepository->registerWidget($widgetClass);
+        }
 
         $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
