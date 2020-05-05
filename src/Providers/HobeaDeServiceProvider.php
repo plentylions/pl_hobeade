@@ -8,7 +8,6 @@ use Plenty\Plugin\Events\Dispatcher;
 use Plenty\Plugin\ServiceProvider;
 use Plenty\Plugin\Templates\Twig;
 use IO\Extensions\Functions\Partial;
-use IO\Services\ItemSearch\Helper\ResultFieldTemplate;
 use IO\Helper\ComponentContainer;
 
 use HobeaDe\Extensions\AwinExtension;
