@@ -1,6 +1,6 @@
 $(function () {
     $('.search-toggler').on('click', function(){
-        $( ".searchCol .search-box-inner" ).slideToggle( "slow", function() { });
+        $( ".searchCol > .container-max" ).slideToggle( "slow", function() { });
         return false;
     });
 });
