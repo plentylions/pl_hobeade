@@ -13,11 +13,6 @@ use IO\Helper\ComponentContainer;
 
 use HobeaDe\Extensions\AwinExtension;
 
-
-/**
- * Class HobeaDeServiceProvider
- * @package HobeaDe\Providers
- */
 class HobeaDeServiceProvider extends ServiceProvider
 {
     const PRIORITY = 0;
@@ -41,26 +36,14 @@ class HobeaDeServiceProvider extends ServiceProvider
             if($componentContainer->getOriginComponentTemplate() == 'Legend::Item.Components.VariationSelect'){
                 $componentContainer->setNewComponentTemplate('HobeaDe::Item.Components.VariationSelect');
             }
+            if($componentContainer->getOriginComponentTemplate() == 'Legend::Item.Components.SingleItem'){
+                $componentContainer->setNewComponentTemplate('HobeaDe::Item.Components.SingleItem');
+            }
         }, self::PRIORITY);
 
         $dispatcher->listen('IO.init.templates', function (Partial $partial)
         {
-            $partial->set('head', 'Legend::PageDesign.Partials.Head');
-            $partial->set('header', 'Legend::PageDesign.Partials.Header.Header');
-            $partial->set('page-design', 'HobeaDe::PageDesign.PageDesign');
             $partial->set('footer', 'HobeaDe::PageDesign.Partials.Footer');
-            $partial->set('page-metadata', 'Legend::PageDesign.Partials.PageMetadata');
-        }, self::PRIORITY);
-
-        $dispatcher->listen('IO.tpl.item', function (TemplateContainer $container)
-        {
-            $container->setTemplate('HobeaDe::Item.SingleItemWrapper');
-        }, self::PRIORITY);
-
-        $dispatcher->listen( 'IO.ResultFields.*', function(ResultFieldTemplate $container) {
-            $container->setTemplates([
-                ResultFieldTemplate::TEMPLATE_SINGLE_ITEM => 'HobeaDe::ResultFields.SingleItem', // variationProperties.*
-            ]);
         }, self::PRIORITY);
     }
 }

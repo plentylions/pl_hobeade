@@ -1,10 +1,5 @@
-{% import "Ceres::Item.Macros.AgeRestriction" as AgeRestriction %}
-
-{% set itemData = config("Ceres.item.data") | split(', ') %}
-
-{% set lang = services.sessionStorage.getLang() %}
-
-<script type="x/template" id="vue-single-item">
+{% set lang = services.localizationRepository.getLanguage() %}
+<script type="x/template" data-component="single-item">
     <div>
         <slot :getDataField="getDataField" :getFilteredDataField="getFilteredDataField">
             <div class="single container-max page-content">
@@ -14,13 +9,174 @@
                     </div>
                     <div class="col-12 col-md-5 single-rightside">
                         <div {% if config("Legend.singleItemStickBlock.disable") == "false" %}v-stick-in-parent{% endif %}>
-                            {% include "Legend::Item.Components.SingleItem.SingleItem_Details" %}
+                            <slot name="tag-list"></slot>
+
+                            <p class="single-description"
+                            v-if="isShortDescriptionActive && currentVariation.texts.shortDescription !== ''"
+                            v-html="currentVariation.texts.shortDescription"></p>
+
+                            <!-- Variation -->
+                            <div class="variation-selects mb-3" v-if="attributes.length || Object.keys(units).length">
+                                <variation-select></variation-select>
+                            </div>
+                            <!-- /Variation -->
+
+                            <!-- Item Bundle -->
+                            <item-bundle v-if="currentVariation.variation.bundleType === 'bundle'" :bundle-type="currentVariation.variation.bundleType" :bundle-components="currentVariation.bundleComponents"></item-bundle>
+                            <!-- /Item Bundle -->
+
+                            <slot name="before-price"></slot>
+
+                            <div v-if="currentVariation.filter.isSalable && variationGroupedProperties.length">
+                                <order-property-list></order-property-list>
+                            </div>
+
+                            {% set showPrice = ( config("Legend.b2b.Enable") == "false" or services.getCustomer.getContactClassId() in config("Legend.b2b.CustomerClassIds")|split(',') ) %}
+                            <div class="mb-3">
+                                {% if showPrice %}
+                                    <graduated-prices></graduated-prices>
+                                    <item-price :show-cross-price="isRecommendedPriceActive"></item-price>
+                                {% endif %}
+
+                                <slot name="after-price"></slot>
+
+                                {% if showPrice %}
+                                    <div class="vat small">
+                                        <template v-if="showNetPrices">${ $translate("Ceres::Template.singleItemExclVAT") }</template><template v-else>${ $translate("Ceres::Template.singleItemInclVAT") }</template> ${ $translate("Ceres::Template.singleItemExclusive") }
+                                        <a v-if="hasShippingCostsCategoryId" data-toggle="modal" href="#shippingscosts" :title="$translate('Ceres::Template.singleItemShippingCosts')">${ $translate("Ceres::Template.singleItemShippingCosts") }</a>
+                                        <a v-else :title="$translate('Ceres::Template.singleItemShippingCosts')">${ $translate("Ceres::Template.singleItemShippingCosts") }</a>
+                                    </div>
+                                {% endif %}
+                            </div>
+
+                            <div class="my-3">
+                                <div class="w-100">
+                                    <slot name="before-add-to-basket"></slot>
+                                </div>
+
+                                {% if showPrice %}
+                                <div class="w-100">
+                                    <div v-if="currentVariation.item.itemType === 'set'" class="alert alert-info w-100">
+                                        ${ $translate("Ceres::Template.singleItemSetInfo") }
+                                    </div>
+                                    <div v-else>
+                                        <add-to-basket
+                                                :variation-id="currentVariation.variation.id"
+                                                :is-salable="!!currentVariation.filter && currentVariation.filter.isSalable"
+                                                :has-children="!!currentVariation.filter && currentVariation.filter.hasActiveChildren"
+                                                :interval-quantity="currentVariation.variation.intervalOrderQuantity || 1"
+                                                :minimum-quantity="currentVariation.variation.minimumOrderQuantity"
+                                                :maximum-quantity="!!currentVariation.variation.maximumOrderQuantity && currentVariation.variation.maximumOrderQuantity > 0 ? currentVariation.variation.maximumOrderQuantity : null"
+                                                :order-properties="currentVariation.properties.filter(function(prop) { return prop.property.isOderProperty })"
+                                                :use-large-scale="false"
+                                                :show-quantity="true"
+                                                :item-url="currentVariation | itemURL"
+                                                :is-variation-selected="isVariationSelected && currentVariation.filter.isSalable"
+                                                :has-price="currentVariation | hasItemDefaultPrice"
+                                            >
+                                        </add-to-basket>
+                                    </div>
+                                </div>
+                                {% else %}
+                                <div class="w-100">
+                                    <div class="add-to-basket-container">
+                                        <button data-toggle="modal" href="#login" class="btn btn-block btn-primary">
+                                            <i class="pl-material pl-outline-exit_to_app" aria-hidden="true"></i>${ $translate("Ceres::Template.login") }
+                                        </button>
+                                    </div>
+                                </div>
+                                {% endif %}
+
+                                <div class="w-100">
+                                    <slot name="after-add-to-basket"></slot>
+                                </div>
+                            </div>
+                            <!-- ./ITEM DETAIL -->
+
+                            <slot name="additional-content-after-add-to-basket"></slot>
+
+                            <hr>
+
+                            <div class="row">
+                                <div class="col-md-12 col-lg-6 availab">
+                                    <item-availability></item-availability>
+                                </div>
+                                <div class="col-md-12 col-lg-6 text-right">
+                                    <span class="articlenumber">
+                                        ${ $translate("Ceres::Template.singleItemNumber") }
+                                        <span>${ currentVariation.variation.number }</span>
+                                    </span>
+                                </div>
+                            </div>
+                            {% if config("Legend.singleItemIconsWithText.hide") == "false" %}
+                            <div class="row prod-actions-footer-text mt-5">
+                                <div class="col-4">
+                                    <span class="{{ trans("Legend::Template.singleItemBottomIcon1Class") }}"></span>
+                                    <span>{{ trans("Legend::Template.singleItemBottomIcon1Text", {"nl": "<br>"}) | raw }}</span>
+                                </div>
+                                <div class="col-4">
+                                    <span class="{{ trans("Legend::Template.singleItemBottomIcon2Class") }}"></span>
+                                    <span>{{ trans("Legend::Template.singleItemBottomIcon2Text", {"nl": "<br>"}) | raw }}</span>
+                                </div>
+                                <div class="col-4">
+                                    <span class="{{ trans("Legend::Template.singleItemBottomIcon3Class") }}"></span>
+                                    <span>{{ trans("Legend::Template.singleItemBottomIcon3Text", {"nl": "<br>"}) | raw }}</span>
+                                </div>
+                            </div>
+                            {% endif %}
+
+                            <slot name="additional-content-after-vat"></slot>
                         </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-12 my-5">
-                        {% include "HobeaDe::Item.Components.SingleItem.SingleItem_InformationTable" %}
+                        <!-- ITEM DESCRIPTION -->
+                        <div class="my-5">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item" v-if="isDescriptionTabActive">
+                                    <a class="nav-link active" data-toggle="tab" :href="'#details-' + currentVariation.variation.id" role="tab">${ $translate("Ceres::Template.singleItemDescription") }</a>
+                                </li>
+
+                                {% for prop in item.documents[0].data.variationProperties %}
+                                    {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
+                                        <li class="nav-item">
+                                            <a {% if 'item.description' not in itemData and 'all' not in itemData and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="nav-link" data-toggle="tab" :href="'#data-' +  currentVariation.variation.id + '-{{ prop.property.id }}'" role="tab">{{ prop.property.names.name }}</a>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <li class="nav-item" v-if="$slots['legend-feedback-container']">
+                                    <a class="nav-link" data-toggle="tab" href="#l-feedback-tab" role="tab">{{ trans("Legend::Template.singleFeedbackTab") }}</a>
+                                </li>
+
+                                <slot name="add-detail-tabs"></slot>
+                            </ul>
+
+                            <div class="tab-content overflow-hidden">
+                                <div class="tab-pane active overflow-auto" :id="'details-' + currentVariation.variation.id" role="tabpanel" v-if="isDescriptionTabActive">
+                                    <div class="my-4" v-html="currentVariation.texts.description">
+                                    </div>
+                                </div>
+
+                                {% for prop in item.documents[0].data.variationProperties %}
+                                    {% if prop.property.id in [1, 2, 3] and prop.values.value is not empty %}
+                                        <div {% if 'item.description' not in itemData and 'all' not in itemData and prop.property.id == 1 %}:class="{ 'active': true }"{% endif %} class="tab-pane" :id="'data-' + currentVariation.variation.id + '-{{ prop.property.id }}'" role="tabpanel">
+                                            <div class="my-4">{{ prop.values.value|raw }}</div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+
+                                <div class="tab-pane" id="l-feedback-tab" role="tabpanel" v-if="$slots['legend-feedback-container']">
+                                    <div class="my-4">
+                                        <slot name="legend-feedback-container"></slot>
+                                    </div>
+                                </div>
+
+                                <slot name="add-detail-tabs-content"></slot>
+                            </div>
+                        </div>
+                        <!-- ./ITEM DESCRIPTION -->
                     </div>
                 </div>
                 {% if config("Legend.singleItemParallax.hide") == "false" %}
