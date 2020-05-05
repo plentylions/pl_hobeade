@@ -39,7 +39,7 @@ class HobeaDeServiceProvider extends ServiceProvider
             $container->addScriptTemplate('HobeaDe::Script');
         }, self::PRIORITY);
 
-        $dispatcher->listen('IO.Component.Import', function (ComponentContainer $componentContainer)
+        /*$dispatcher->listen('IO.Component.Import', function (ComponentContainer $componentContainer)
         {
             if($componentContainer->getOriginComponentTemplate() == 'Legend::Item.Components.VariationSelect'){
                 $componentContainer->setNewComponentTemplate('HobeaDe::Item.Components.VariationSelect');
@@ -56,7 +56,7 @@ class HobeaDeServiceProvider extends ServiceProvider
             $partial->set('page-design', 'Legend::PageDesign.PageDesign');
             $partial->set('page-metadata', 'Legend::PageDesign.Partials.PageMetadata');
             $partial->set('footer', 'HobeaDe::PageDesign.Partials.Footer');
-        }, self::PRIORITY);
+        }, self::PRIORITY);*/
     }
 }
 
