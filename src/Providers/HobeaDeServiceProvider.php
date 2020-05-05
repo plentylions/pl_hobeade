@@ -26,7 +26,7 @@ class HobeaDeServiceProvider extends ServiceProvider
 
     public function boot(Twig $twig, Dispatcher $dispatcher)
     {
-        //$twig->addExtension(AwinExtension::class);
+        $twig->addExtension(AwinExtension::class);
 
         $widgetRepository = pluginApp(ContentWidgetRepositoryContract::class);
         $widgetClasses = WidgetCollection::all();
@@ -34,10 +34,10 @@ class HobeaDeServiceProvider extends ServiceProvider
             $widgetRepository->registerWidget($widgetClass);
         }
 
-        /*$dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
+        $dispatcher->listen('IO.Resources.Import', function (ResourceContainer $container) {
             $container->addStyleTemplate('HobeaDe::Stylesheet');
             $container->addScriptTemplate('HobeaDe::Script');
-        }, self::PRIORITY);*/
+        }, self::PRIORITY);
 
         $dispatcher->listen('IO.Component.Import', function (ComponentContainer $componentContainer)
         {

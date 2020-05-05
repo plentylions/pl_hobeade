@@ -1,4 +1,4 @@
-<script type="x/template" id="vue-newsletter-input">
+<script type="x/template" data-component="newsletter-input">
         <form :id="'newsletter-input-form_' + _uid" method="post" @submit.prevent="validateData">
             <div class="row">
                 <div class="col-xs-12" v-if="title">
@@ -9,13 +9,13 @@
             <div class="row">
                 <div class="col-12 col-sm-6 col-md-3" v-if="showNameInputs">
                     <div class="input-unit">
-                        <label :for="'first-name-input_' + _uid">{{ $translate("Ceres::Template.newsletterFirstName") }}</label>
+                        <label :for="'first-name-input_' + _uid">${ $translate("Ceres::Template.newsletterFirstName") }</label>
                         <input type="text" :id="'first-name-input_' + _uid" v-model="firstName">
                     </div>
                 </div>
                 <div class="col-12 col-sm-6 col-md-3 pl-sm-0" v-if="showNameInputs">
                     <div class="input-unit">
-                        <label :for="'last-name-input_' + _uid">{{ $translate("Ceres::Template.newsletterLastName") }}</label>
+                        <label :for="'last-name-input_' + _uid">${ $translate("Ceres::Template.newsletterLastName") }</label>
                         <input type="text" :id="'last-name-input_' + _uid" v-model="lastName">
                     </div>
                 </div>
@@ -23,7 +23,7 @@
                 <div class="col-12 col-sm-6 col-md-3 pl-md-0">
                     <div class="input-group">
                         <div class="input-unit" data-validate="mail">
-                            <label :for="'email-input-id_' + _uid">{{ $translate("Ceres::Template.newsletterEmail") }} *</label>
+                            <label :for="'email-input-id_' + _uid">${ $translate("Ceres::Template.newsletterEmail") } *</label>
                             <input type="email" autocomplete="email" :id="'email-input-id_' + _uid" v-model="email">
                         </div>
                         <input autocomplete="none" class="honey" type="text" name="username" tabindex="-1" v-model="honeypot">
@@ -34,7 +34,7 @@
                     <div class="input-group-btn">
                         <button type="button" class="btn btn-block btn-primary btn-appearance" @click="validateData" :disabled="isDisabled" :class="buttonSizeClass">
                             <icon icon="paper-plane-o" :loading="isDisabled"></icon>
-                            {{ $translate("Ceres::Template.newsletterSubscribeButtonLabel") }}
+                            ${ $translate("Ceres::Template.newsletterSubscribeButtonLabel") }
                         </button>
                     </div>
                 </div>
